@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: CHANGE_DB_NAME
+      POSTGRES_PASSWORD: CHANGE_DB_PASSWORD
+      POSTGRES_USER: CHANGE_DB_USER
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - wiki-network
+
+  wiki:
+    image: ghcr.io/requarks/wiki:2
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: CHANGE_DB_USER
+      DB_PASS: CHANGE_DB_PASSWORD
+      DB_NAME: CHANGE_DB_NAME
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+    volumes:
+      - wiki-data:/wiki/data
+      - ./backup:/wiki/backup
+    networks:
+      - wiki-network
+
+volumes:
+  db-data:
+  wiki-data:
+
+networks:
+  wiki-network:
+    driver: bridge
