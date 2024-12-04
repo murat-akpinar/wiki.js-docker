@@ -1,4 +1,8 @@
-# Wiki.js Docker Compose Kurulumu
+<div align="center">
+  <img src="https://elest.io/images/softwares/58/logo.png" alt="LOGO" />
+
+  # Wiki.js
+</div>
 
 Bu repo, **Wiki.js** adlı modern ve esnek bir açık kaynaklı wiki platformunu, **PostgreSQL** veritabanı ile birlikte Docker Compose kullanarak kolayca kurmanızı sağlar.
 
